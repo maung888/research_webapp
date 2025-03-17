@@ -1,9 +1,14 @@
-<h2>You're Logged out! Log in to the Dashboard!!</h2>
+<div class="d-flex flex-column align-items-center justify-content-center vh-100 text-center">
+  <h2 class="mb-4">You're Logged Out</h2>
+  <p class="mb-3">Log in to access the Dashboard</p>
 
-<%= button_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-
-danger", method: :post, data: {turbo: "false"} do %>
+  <%= button_to user_google_oauth2_omniauth_authorize_path, 
+                class: "btn btn-danger d-flex align-items-center gap-2 px-4 py-2", 
+                method: :post, 
+                data: { turbo: "false" } do %>
 
-<i class="fab fa-google mobile-text"></i><span class = "mobile-
-font">&nbsp;Google</span>
+    <i class="fab fa-google"></i>
+    <span>Sign in with Google</span>
 
-<% end %>
+  <% end %>
+</div>

@@ -1,0 +1,46 @@
+<%# app/views/project_notification_mailer/new_project_email.html.erb %>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'/>
+  </head>
+  <body>
+    <h1>New Research Project:
+      <%= @project.title %></h1>
+
+    <p>
+      Hello
+      <%= @user.name %>,
+    </p>
+
+    <p>
+      A new research project has been posted that you might be interested in:
+    </p>
+
+    <p>
+      <strong>Title:</strong>
+      <%= @project.title %><br>
+      <strong>Description:</strong>
+      <%= @project.description %><br>
+      <strong>Areas of Research:</strong>
+      <%= @project.areas_of_research %><br>
+      <strong>Start Semester:</strong>
+      <%= @project.start_semester %><br>
+      <strong>Number of Positions:</strong>
+      <%= @project.num_positions %><br>
+      <% if @project.prefered_class.present? %>
+        <strong>Preferred Class:</strong>
+        <%= @project.prefered_class %><br>
+      <% end %>
+      <% if @project.other_comments.present? %>
+        <strong>Other Comments:</strong>
+        <%= @project.other_comments %><br>
+      <% end %>
+    </p>
+
+    <p>
+      <%= link_to "View Project", project_url(@project) %>
+    </p>
+
+  </body>
+</html>

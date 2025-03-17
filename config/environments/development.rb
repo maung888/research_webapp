@@ -36,6 +36,22 @@ Rails.application.configure do
 
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
+  # config/environments/development.rb
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              ENV['ZOHO_SMTP_SERVER'],
+    port:                 ENV['ZOHO_SMTP_PORT'].to_i,
+    domain:               ENV['ZOHO_DOMAIN'],
+    user_name:            ENV['ZOHO_SMTP_USERNAME'],
+    password:             ENV['ZOHO_SMTP_PASSWORD'],
+    authentication:       :login,  # Try :login first, then :plain if needed
+    enable_starttls_auto: true,  # Usually true for Zoho
+    ssl:                  true     # Since you're using port 465
+  }
+
+  config.action_mailer.raise_delivery_errors = true # VERY IMPORTANT for development
+  config.action_mailer.perform_deliveries = true # set this
+
 
   # Set localhost to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = { host: "localhost", port: 3000 }

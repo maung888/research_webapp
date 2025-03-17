@@ -7,7 +7,7 @@ class User < ApplicationRecord
 
   # Add validations, even though we use OAuth.
   validates :email, presence: true, uniqueness: { case_sensitive: false }, length: { maximum: 255 }
-  validates :name, presence: true
+  # validates :name, presence: true
   validates :uid, presence: true
   validates :provider, presence: true
 
@@ -29,6 +29,8 @@ class User < ApplicationRecord
         elsif User.is_student_email?(user.email)
           user.create_student!(major: "Undecided", year: 0) unless user.student? # Create Student role if email matches student domain
         end
+    else
+        user.update(uid: uid, provider: provider) if user.uid.blank? || user.provider.blank?
     end
     user
   end
@@ -41,7 +43,9 @@ class User < ApplicationRecord
       "sudhanvarajesh@tamu.edu",
       "samraatg@tamu.edu",
       "stephanie.vilas@exchange.tamu.edu",
-      "stephanie.vilas@tamu.edu"
+      "stephanie.vilas@tamu.edu",
+      "maung@tamu.edu"
+
     ]
     admin_emails.include?(email.downcase) # Case-insensitive email check
   end

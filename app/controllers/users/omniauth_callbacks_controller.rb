@@ -1,5 +1,11 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def google_oauth2
+    if auth.nil?
+      Rails.logger.error "OmniAuth auth hash is nil! Possible misconfiguration or test mode issue."
+      flash[:alert] = "Authentication failed. Please try again."
+      redirect_to new_user_session_path and return
+    end
+
     Rails.logger.debug "--- Google OAuth Callback ---" # Add log at the beginning
     Rails.logger.debug "Full auth hash: #{auth.inspect}" # Log the entire auth hash
     Rails.logger.debug "auth.info: #{auth.info.inspect}" # Log auth.info specifically

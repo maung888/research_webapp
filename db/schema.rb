@@ -34,7 +34,6 @@ ActiveRecord::Schema[8.0].define(version: 2025_02_12_075106) do
 
   create_table "faculties", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "email"
     t.string "department"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

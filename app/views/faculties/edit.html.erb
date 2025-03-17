@@ -1,0 +1,46 @@
+<!-- app/views/faculties/edit.html.erb -->
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Edit Faculty</h1>
+
+
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <%= form_with model: @faculty, local: true do |f| %>
+        <% if @faculty.errors.any? %>
+          <div class="alert alert-danger">
+            <h4><%= pluralize(@faculty.errors.count, "error") %> prohibited this faculty from being saved:</h4>
+            <ul>
+              <% @faculty.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <!-- Department -->
+        <div class="mb-3">
+          <%= f.label :department, "Department (Optional)", class: "form-label" %>
+          <%= f.text_field :department, value: @faculty.department, class: "form-control" %>
+        </div>
+
+        <!-- Name -->
+        <div class="mb-3">
+          <%= f.label :name, "Name (Optional)", class: "form-label" %>
+          <%= f.text_field :name, value: @faculty.user.name, class: "form-control" %>
+        </div>
+
+        <!-- Email -->
+        <div class="mb-3">
+          <%= f.label :email, "Email (Required)", class: "form-label" %>
+          <%= f.email_field :email, value: @faculty.user.email, class: "form-control" %>
+        </div>
+
+        <div class="text-center">
+          <%= link_to "Back to Faculty List", faculties_path, class: "btn btn-warning" %>
+           <%= f.submit "Update Faculty", class: "btn btn-primary" %>
+        </div>         
+      <% end %>
+    </div>
+  </div>
+</div>

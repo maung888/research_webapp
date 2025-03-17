@@ -1,0 +1,48 @@
+<!-- app/views/students/edit.html.erb -->
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Edit Student</h1>
+
+  
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <%= form_with(model: @student, local: true) do |f| %>
+        <% if @student.errors.any? %>
+          <div class="alert alert-danger">
+            <h4><%= pluralize(@student.errors.count, "error") %> prohibited this student from being saved:</h4>
+            <ul>
+              <% @student.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="mb-3">
+          <%= f.label :email, "Email (Required)", class: "form-label" %>
+          <%= f.email_field :email, value: @student.user.email, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :name, "Name (Optional)", class: "form-label" %>
+          <%= f.text_field :name, value: @student.user.name, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :year, "Year (Optional)", class: "form-label" %>
+          <%= f.number_field :year, value: @student.year, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :major, "Major (Optional)", class: "form-label" %>
+          <%= f.text_field :major, value: @student.major, class: "form-control" %>
+        </div>
+
+        <div class="text-center">
+        <%= link_to "Back to Student List", students_path, class: "btn btn-warning" %>
+          <%= f.submit "Update Student", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

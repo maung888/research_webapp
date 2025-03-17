@@ -1,0 +1,25 @@
+<%# app/views/project_notification_mailer/new_project_email.text.erb %>
+New Research Project:
+<%= @project.title %>
+Hello
+<%= @user.name %>, A new research project has been posted that you might be interested in:
+Title:
+<%= @project.title %>
+Description:
+<%= @project.description %>
+Areas of Research:
+<%= @project.areas_of_research %>
+Start Semester:
+<%= @project.start_semester %>
+Number of Positions:
+<%= @project.num_positions %>
+<% if @project.prefered_class.present? %>
+  Preferred Class:
+  <%= @project.prefered_class %>
+<% end %>
+<% if @project.other_comments.present? %>
+  Other Comments:
+  <%= @project.other_comments %>
+<% end %>
+View Project:
+<%= project_url(@project) %>

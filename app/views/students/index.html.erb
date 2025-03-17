@@ -1,0 +1,48 @@
+<!-- app/views/students/index.html.erb -->
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Student List</h1>
+
+  <!-- Back to Admin Dashboard button -->
+  <div class="mb-3">
+    <%= link_to "Back to Admin Dashboard", admin_dashboard_path, class: "btn btn-warning" %>
+    <%= link_to "New Student", new_student_path, class: "btn btn-success" %>
+  </div>
+
+  <table class="table table-bordered table-striped text-center align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Email</th>
+        <th>Name</th>
+        <th>Year</th>
+        <th>Major</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @students.any? %>
+        <% @students.each do |student| %>
+          <tr>
+            <td><%= student.user.email %></td>
+            <td><%= student.user.name.presence || "N/A" %></td>
+            <td><%= student.year.presence || "N/A" %></td>
+            <td><%= student.major.presence || "N/A" %></td>
+            <td>
+            <div class="d-flex justify-content-center gap-2">
+              <%= link_to "Edit", edit_student_path(student), class: "btn btn-primary" %>
+              <%= button_to "Delete",
+                            student_path(student),
+                            method: :delete,
+                            data: { confirm: "Are you sure?" },
+                            class: "btn btn-danger" %>
+            </div>
+          </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="5">No students found.</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

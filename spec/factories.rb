@@ -12,9 +12,8 @@ FactoryBot.define do
   end
 
   factory :faculty do
-    user # Assumes you have a User factory
+    association :user # Assumes you have a User factory
     department { Faker::Commerce.department }
-    email { Faker::Internet.email } # Add email for faculty as well if needed
   end
 
   factory :project do

@@ -1,0 +1,41 @@
+<!-- app/views/faculties/new.html.erb -->
+<div class="container mt-4">
+  <h1 class="text-center mb-4">New Faculty</h1>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <%= form_with model: @faculty, local: true do |f| %>
+        <% if @faculty.errors.any? %>
+          <div class="alert alert-danger">
+            <h4><%= pluralize(@faculty.errors.count, "error") %> prohibited this faculty from being saved:</h4>
+            <ul>
+              <% @faculty.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="mb-3">
+          <%= f.label :email, "Email (Required)", class: "form-label" %>
+          <%= f.email_field :email, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :name, "Name (Optional)", class: "form-label" %>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :department, "Department (Optional)", class: "form-label" %>
+          <%= f.text_field :department, class: "form-control" %>
+        </div>
+
+        <div class="text-center">
+         <%= link_to "Back to Faculty List", faculties_path, class: "btn btn-warning" %>
+          <%= f.submit "Create Faculty", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

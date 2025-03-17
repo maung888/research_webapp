@@ -55,20 +55,24 @@ Rails.application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  # config/environments/production.rb
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    address:              ENV['ZOHO_SMTP_SERVER'],
+    port:                 ENV['ZOHO_SMTP_PORT'].to_i,
+    domain:               ENV['ZOHO_DOMAIN'],  # Your *actual* domain (or Zoho's if @zohomail.com)
+    user_name:            ENV['ZOHO_SMTP_USERNAME'],
+    password:             ENV['ZOHO_SMTP_PASSWORD'],
+    authentication:       :login,
+    enable_starttls_auto: true,
+    ssl:                  true     # For port 465
+  }
 
-  # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "example.com" }
+  config.action_mailer.raise_delivery_errors = false # Usually false in production (handle gracefully)
+  config.action_mailer.perform_deliveries = true
 
-  # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
-  # config.action_mailer.smtp_settings = {
-  #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
-  #   password: Rails.application.credentials.dig(:smtp, :password),
-  #   address: "smtp.example.com",
-  #   port: 587,
-  #   authentication: :plain
-  # }
-
+  # VERY IMPORTANT: Set default_url_options for production (Heroku)
+  config.action_mailer.default_url_options = { host: ENV['HEROKU_APP_NAME'] + ".herokuapp.com" } # Use Heroku app name
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true

@@ -1,0 +1,45 @@
+<!-- app/views/faculties/index.html.erb -->
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Faculty List</h1>
+
+  <div class="mb-3">
+    <%= link_to "Back to Admin Dashboard", admin_dashboard_path, class: "btn btn-warning" %>
+    <%= link_to "New Faculty", new_faculty_path, class: "btn btn-success" %>
+  </div>
+
+  <table class="table table-bordered table-striped text-center align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @faculties.any? %>
+        <% @faculties.each do |faculty| %>
+          <tr>
+            <td><%= faculty.user.name.presence || "N/A" %></td>
+            <td><%= faculty.user.email %></td>
+            <td><%= faculty.department.presence || "N/A" %></td>
+            <td>
+            <div class="d-flex justify-content-center gap-2">
+              <%= link_to "Edit", edit_faculty_path(faculty), class: "btn btn-primary me-2" %>
+              <%= button_to "Delete",
+                            faculty_path(faculty),
+                            method: :delete,
+                            data: { confirm: "Are you sure?" },
+                            class: "btn btn-danger" %>
+             </div>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="4">No faculty members available.</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
