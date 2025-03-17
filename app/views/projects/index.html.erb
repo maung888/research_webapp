@@ -109,17 +109,17 @@
                   <p class="project-description"><strong>Admin:</strong>
                     <%= project.admin.user.name %></p>
                   <p class="project-description"><strong>Contact:</strong>
-                    <%= project.admin.user.email %></p>
+                    <%= project.admin.user.email %></p> 
                 <% end %>
               </div>
             </div>
 
             <p class="project-description"><strong>Other Comments:</strong>
               <%= project.other_comments.presence || "N/A" %></p>
-            <!-- Apply Button -->
-            <div class="text-end">
-              <%= button_to "Apply Now", "#", class: "btn btn-primary" %>
-            </div>
+              <!-- Apply Button -->
+              <div class="text-end">
+              <%= link_to 'Apply', 'https://docs.google.com/forms/d/e/1FAIpQLSf55GqUgHqCycTpiIqW3CUDBZ34UmE2OKq1HMoUxUx76e0Nfw/viewform?usp=header', class: 'btn btn-primary', target: '_blank' %>
+              </div>
           </div>
         </div>
       </div>

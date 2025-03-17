@@ -39,6 +39,7 @@ class User < ApplicationRecord
    def self.is_admin_email?(email)
     admin_emails = [
       "davidvanderklay@tamu.edu",
+      "chittiv1113@tamu.edu",
       "paulinewade@tamu.edu",
       "sudhanvarajesh@tamu.edu",
       "samraatg@tamu.edu",

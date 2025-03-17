@@ -8,25 +8,27 @@ class ProjectsController < ApplicationController
     @projects = Project.all
 
     if params[:search].present?
-      # Make a wildcard query for partial matches
       search_term = "%#{params[:search]}%"
 
-      # We can search across multiple columns, including faculty’s user name.
-      # Using ILIKE for case-insensitive search in PostgreSQL
-      @projects = @projects.joins(faculties: :user)
+      @projects = @projects.left_joins(faculties: :user)
+                           .joins("LEFT OUTER JOIN users AS admin_users ON admin_users.id = projects.admin_id")
                            .where("projects.title ILIKE :term
                                    OR projects.areas_of_research ILIKE :term
                                    OR projects.start_semester ILIKE :term
                                    OR projects.prefered_class ILIKE :term
-                                   OR users.name ILIKE :term",
+                                   OR users.name ILIKE :term
+                                   OR users.email ILIKE :term
+                                   OR admin_users.name ILIKE :term
+                                   OR admin_users.email ILIKE :term",
                                   term: search_term)
       flash.now[:info] = "Showing search results for: '#{params[:search]}'"
     else
       @projects = Project.all
       flash.now[:info] = "Showing all research projects" if request.format.html?
-
     end
   end
+
+
 
   def new
     @project = Project.new

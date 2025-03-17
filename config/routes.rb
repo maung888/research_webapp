@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :students
   get "admin_dashboard" => "admins#dashboard", as: :admin_dashboard
 
+  post "forms/send_form/:project_id", to: "forms#send_form", as: "send_form"
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
   # get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
